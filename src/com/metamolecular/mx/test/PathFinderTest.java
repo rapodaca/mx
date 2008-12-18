@@ -193,8 +193,8 @@ public class PathFinderTest extends TestCase
     test.add(phenol.getAtom(1));
 
     assertTrue(paths.contains(test));
-  }
-
+  } 
+  
   public void testItShouldFindPathsExtendingFullDepthOfMolecule()
   {
     PathFinder finder = new PathFinder();
