@@ -23,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.metamolecular.mx.path;
 
 import com.metamolecular.mx.model.Atom;
@@ -36,41 +35,68 @@ import java.util.List;
 public class PathFinder
 {
   private List<List<Atom>> paths;
-  
+  private int maxLength;
+
   public PathFinder()
   {
     paths = new ArrayList<List<Atom>>();
+    maxLength = 0;
   }
-  
+
+  public void setMaximumPathLength(int maxLength)
+  {
+    this.maxLength = maxLength;
+  }
+
+  public int getMaximumPathLength()
+  {
+    return maxLength;
+  }
+
   public List<List<Atom>> findAllPaths(Atom atom)
   {
     Step step = new DefaultStep(atom);
-    
+
     paths.clear();
     walk(step);
-    
+
     return paths;
   }
-  
+
   public void walk(Step step)
   {
-    if (!step.hasNextBranch())
+    if (isDone(step))
     {
       paths.add(new ArrayList<Atom>(step.getPath()));
-      
+
       return;
     }
-    
-    while(step.hasNextBranch())
+
+    while (step.hasNextBranch())
     {
       Atom next = step.nextBranch();
-      
+
       if (step.isBranchFeasible(next))
       {
         walk(step.nextStep(next));
-        
+
         step.backTrack();
       }
     }
+  }
+
+  private boolean isDone(Step step)
+  {
+    if (maxLength != 0 && step.getPath().size() >= maxLength)
+    {
+      return true;
+    }
+
+    if (!step.hasNextBranch())
+    {
+      return true;
+    }
+
+    return false;
   }
 }

@@ -43,6 +43,7 @@ public class PathFinderTest extends TestCase
   private Molecule cyclohexane;
   private Molecule neopentane;
   private Molecule phenol;
+  private Molecule naphthalene;
 
   @Override
   protected void setUp() throws Exception
@@ -52,6 +53,7 @@ public class PathFinderTest extends TestCase
     cyclohexane = Molecules.createCyclohexane();
     neopentane = Molecules.createNeopentane();
     phenol = Molecules.createPhenol();
+    naphthalene = Molecules.createNaphthalene();
   }
 
   public void testItShouldFindOneHexanePathsStartingFromPrimaryCarbon()
@@ -193,5 +195,21 @@ public class PathFinderTest extends TestCase
     test.add(phenol.getAtom(1));
     
     assertTrue(paths.contains(test));
+  }
+  
+  public void testItShouldFindPathsOfLengthFiveOnly()
+  {
+    PathFinder finder = new PathFinder();
+    
+    finder.setMaximumPathLength(5);
+    
+    List<List<Atom>> paths = finder.findAllPaths(naphthalene.getAtom(0));
+    
+    assertTrue(paths.size() > 0);
+    
+    for (List<Atom> path : paths)
+    {
+      assertEquals(5, path.size());
+    }
   }
 }
