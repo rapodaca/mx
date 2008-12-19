@@ -27,6 +27,7 @@ package com.metamolecular.mx.path;
 
 import com.metamolecular.mx.model.Atom;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -34,36 +35,42 @@ import java.util.List;
  */
 public class PathFinder
 {
-  private List<List<Atom>> paths;
-  private int maxLength;
+//  private List<List<Atom>> paths;
+  private int maxDepth;
 
   public PathFinder()
   {
-    paths = new ArrayList<List<Atom>>();
-    maxLength = 0;
+//    paths = new ArrayList<List<Atom>>();
+    maxDepth = 0;
   }
 
-  public void setMaximumPathLength(int maxLength)
+  public void setMaximumDepth(int maxDepth)
   {
-    this.maxLength = maxLength;
+    this.maxDepth = maxDepth;
   }
 
   public int getMaximumPathLength()
   {
-    return maxLength;
+    return maxDepth;
+  }
+  
+  public void findAllPaths(Atom atom, Collection<List<Atom>> paths)
+  {
+    Step step = new DefaultStep(atom);
+    
+    walk(step, paths);
   }
 
   public List<List<Atom>> findAllPaths(Atom atom)
   {
-    Step step = new DefaultStep(atom);
-
-    paths.clear();
-    walk(step);
+    List paths = new ArrayList();
+    
+    findAllPaths(atom, paths);
 
     return paths;
   }
 
-  public void walk(Step step)
+  public void walk(Step step, Collection<List<Atom>> paths)
   {
     if (isDone(step))
     {
@@ -78,7 +85,7 @@ public class PathFinder
 
       if (step.isBranchFeasible(next))
       {
-        walk(step.nextStep(next));
+        walk(step.nextStep(next), paths);
 
         step.backTrack();
       }
@@ -87,7 +94,7 @@ public class PathFinder
 
   private boolean isDone(Step step)
   {
-    if (maxLength != 0 && step.getPath().size() >= maxLength)
+    if (maxDepth != 0 && step.getPath().size() >= maxDepth)
     {
       return true;
     }

@@ -212,7 +212,7 @@ public class PathFinderTest extends TestCase
   {
     PathFinder finder = new PathFinder();
     
-    finder.setMaximumPathLength(5);
+    finder.setMaximumDepth(5);
     
     List<List<Atom>> paths = finder.findAllPaths(phenol.getAtom(6));
 
@@ -222,5 +222,15 @@ public class PathFinderTest extends TestCase
     {
       assertEquals(5, path.size());
     }
+  }
+  
+  public void testItShouldPlacePathsIntoAnExternallySuppliedCollection()
+  {
+    PathFinder finder = new PathFinder();
+    List<List<Atom>> paths = new ArrayList();
+    
+    finder.findAllPaths(phenol.getAtom(6), paths);
+    
+    assertEquals(2, paths.size());
   }
 }

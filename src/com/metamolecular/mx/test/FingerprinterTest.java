@@ -23,40 +23,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.metamolecular.mx.test;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import com.metamolecular.mx.fingerprint.Fingerprinter;
+import com.metamolecular.mx.io.Molecules;
+import com.metamolecular.mx.model.Molecule;
+import java.util.BitSet;
+import junit.framework.TestCase;
 
 /**
- * @author Richard L. Apodaca
+ * @author Richard L. Apodaca <rapodaca at metamolecular.com>
  */
-public class MXTest
+public class FingerprinterTest extends TestCase
 {
-
-  public static void main(String[] args)
+  public void testItShouldCreateANonemptyFingerprint()
   {
-    TestSuite suite = new TestSuite();
-
-    suite.addTestSuite(MoleculeTest.class);
-    suite.addTestSuite(AtomTest.class);
-    suite.addTestSuite(BondTest.class);
-    suite.addTestSuite(StateTest.class);
-    suite.addTestSuite(MapperTest.class);
-    suite.addTestSuite(MolfileReaderTest.class);
-    suite.addTestSuite(StepTest.class);
-    suite.addTestSuite(PathFinderTest.class);
-    suite.addTestSuite(VirtualHydrogenCounterTest.class);
-    suite.addTestSuite(SMILESTokenizerTest.class);
-    suite.addTestSuite(SMILESReaderTest.class);
-    suite.addTestSuite(SMILESBuilderTest.class);
-    suite.addTestSuite(AtomicSystemTest.class);
-    suite.addTestSuite(MassCalculatorTest.class);
-    suite.addTestSuite(MoleculeKitTest.class);
-    suite.addTestSuite(SDFileReaderTest.class);
-    suite.addTestSuite(SDFileWriterTest.class);
-    suite.addTestSuite(FingerprinterTest.class);
-
-    TestRunner.run(suite);
+    Molecule benzene = Molecules.createBenzene();
+    Fingerprinter fingerprinter = new Fingerprinter();
+    
+    BitSet fingerprint = fingerprinter.getFingerprint(benzene);
+    
+    assertNotSame(0, fingerprint.cardinality());
   }
 }
