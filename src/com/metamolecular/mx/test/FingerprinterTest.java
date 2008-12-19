@@ -23,7 +23,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
 package com.metamolecular.mx.test;
 
 import com.metamolecular.mx.fingerprint.Fingerprinter;
@@ -41,9 +40,47 @@ public class FingerprinterTest extends TestCase
   {
     Molecule benzene = Molecules.createBenzene();
     Fingerprinter fingerprinter = new Fingerprinter();
-    
+
     BitSet fingerprint = fingerprinter.getFingerprint(benzene);
+
+    assertFalse(fingerprint.isEmpty());
+  }
+
+  public void testItShouldReturnTheSameFingerprintForTheSameMolecule()
+  {
+    Molecule benzene = Molecules.createBenzene();
+    Fingerprinter fingerprinter = new Fingerprinter();
+    BitSet firstFingerprint = fingerprinter.getFingerprint(benzene);
+
+    for (int i = 0; i < 10; i++)
+    {
+      BitSet newFingerprint = fingerprinter.getFingerprint(benzene);
+
+      assertEquals(firstFingerprint, newFingerprint);
+    }
+  }
+
+  public void testItShouldFullyIntersectTheFingerprintDerivedFromASuperstructure()
+  {
+    Fingerprinter fingerprinter = new Fingerprinter();
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
+    BitSet intersection = (BitSet) benzene.clone();
     
-    assertNotSame(0, fingerprint.cardinality());
+    intersection.and(phenol);
+    
+    assertEquals(benzene, intersection);
+  }
+
+  public void testItShouldNotFullyIntersectTheFingerprintDerivedFromASubstructure()
+  {
+    Fingerprinter fingerprinter = new Fingerprinter();
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
+    BitSet intersection = (BitSet) phenol.clone();
+    
+    intersection.and(benzene);
+    
+    assertFalse(phenol.equals(intersection));
   }
 }

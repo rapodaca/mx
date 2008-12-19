@@ -42,16 +42,6 @@ public class Fingerprinter
       result.set(position);
     }
 
-//
-//		for (Iterator e = paths.values().iterator(); e.hasNext(); )
-//		{
-//			path = (String)e.next();
-//			position = new java.util.Random(path.hashCode()).nextInt(size);
-//			logger.debug("Setting bit " + position + " for " + path);
-//			bs.set(position);
-//		}
-//		return bs;
-
     return result;
   }
 
