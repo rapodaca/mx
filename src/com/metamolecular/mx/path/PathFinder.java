@@ -49,7 +49,7 @@ public class PathFinder
     this.maxDepth = maxDepth;
   }
 
-  public int getMaximumPathLength()
+  public int getMaximumDepth()
   {
     return maxDepth;
   }

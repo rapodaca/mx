@@ -66,9 +66,9 @@ public class FingerprinterTest extends TestCase
     BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
     BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
     BitSet intersection = (BitSet) benzene.clone();
-    
+
     intersection.and(phenol);
-    
+
     assertEquals(benzene, intersection);
   }
 
@@ -78,9 +78,37 @@ public class FingerprinterTest extends TestCase
     BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
     BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
     BitSet intersection = (BitSet) phenol.clone();
-    
+
     intersection.and(benzene);
-    
+
     assertFalse(phenol.equals(intersection));
+  }
+
+  public void testItShouldCreateANonemptyFingerprintWhenPathDepthIsZero()
+  {
+    Molecule benzene = Molecules.createBenzene();
+    Fingerprinter fingerprinter = new Fingerprinter();
+    
+    fingerprinter.setMaximumPathDepth(0);
+
+    BitSet fingerprint = fingerprinter.getFingerprint(benzene);
+
+    assertFalse(fingerprint.isEmpty());
+  }
+
+  public void testItShouldProduceADifferentFingerprintWhenThePathDepthIsChanged()
+  {
+    Molecule naphthalene = Molecules.createNaphthalene();
+    Fingerprinter fingerprinter = new Fingerprinter();
+
+    fingerprinter.setMaximumPathDepth(6);
+
+    BitSet fp6 = fingerprinter.getFingerprint(naphthalene);
+
+    fingerprinter.setMaximumPathDepth(0);
+
+    BitSet fpall = fingerprinter.getFingerprint(naphthalene);
+
+    assertFalse(fp6.equals(fpall));
   }
 }

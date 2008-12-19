@@ -29,6 +29,16 @@ public class Fingerprinter
     
     pathFinder.setMaximumDepth(6);
   }
+  
+  public void setMaximumPathDepth(int maxDepth)
+  {
+    pathFinder.setMaximumDepth(maxDepth);
+  }
+  
+  public int getMaximumPathDepth()
+  {
+    return pathFinder.getMaximumDepth();
+  }
 
   public BitSet getFingerprint(Molecule molecule)
   {
