@@ -35,12 +35,10 @@ import java.util.List;
  */
 public class PathFinder
 {
-//  private List<List<Atom>> paths;
   private int maxDepth;
 
   public PathFinder()
   {
-//    paths = new ArrayList<List<Atom>>();
     maxDepth = 0;
   }
 

@@ -36,10 +36,17 @@ import junit.framework.TestCase;
  */
 public class FingerprinterTest extends TestCase
 {
+  private Fingerprinter fingerprinter;
+
+  @Override
+  protected void setUp() throws Exception
+  {
+    fingerprinter = new Fingerprinter();
+  }
+
   public void testItShouldCreateANonemptyFingerprint()
   {
     Molecule benzene = Molecules.createBenzene();
-    Fingerprinter fingerprinter = new Fingerprinter();
 
     BitSet fingerprint = fingerprinter.getFingerprint(benzene);
 
@@ -49,7 +56,6 @@ public class FingerprinterTest extends TestCase
   public void testItShouldReturnTheSameFingerprintForTheSameMolecule()
   {
     Molecule benzene = Molecules.createBenzene();
-    Fingerprinter fingerprinter = new Fingerprinter();
     BitSet firstFingerprint = fingerprinter.getFingerprint(benzene);
 
     for (int i = 0; i < 10; i++)
@@ -62,33 +68,27 @@ public class FingerprinterTest extends TestCase
 
   public void testItShouldFullyIntersectTheFingerprintDerivedFromASuperstructure()
   {
-    Fingerprinter fingerprinter = new Fingerprinter();
     BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
     BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
-    BitSet intersection = (BitSet) benzene.clone();
 
-    intersection.and(phenol);
-
-    assertEquals(benzene, intersection);
+    assertTrue(match(benzene, phenol));
   }
 
   public void testItShouldNotFullyIntersectTheFingerprintDerivedFromASubstructure()
   {
-    Fingerprinter fingerprinter = new Fingerprinter();
     BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
     BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
     BitSet intersection = (BitSet) phenol.clone();
 
     intersection.and(benzene);
 
-    assertFalse(phenol.equals(intersection));
+    assertFalse(match(phenol, benzene));
   }
 
   public void testItShouldCreateANonemptyFingerprintWhenPathDepthIsZero()
   {
     Molecule benzene = Molecules.createBenzene();
-    Fingerprinter fingerprinter = new Fingerprinter();
-    
+
     fingerprinter.setMaximumPathDepth(0);
 
     BitSet fingerprint = fingerprinter.getFingerprint(benzene);
@@ -99,7 +99,6 @@ public class FingerprinterTest extends TestCase
   public void testItShouldProduceADifferentFingerprintWhenThePathDepthIsChanged()
   {
     Molecule naphthalene = Molecules.createNaphthalene();
-    Fingerprinter fingerprinter = new Fingerprinter();
 
     fingerprinter.setMaximumPathDepth(6);
 
@@ -110,5 +109,63 @@ public class FingerprinterTest extends TestCase
     BitSet fpall = fingerprinter.getFingerprint(naphthalene);
 
     assertFalse(fp6.equals(fpall));
+  }
+
+  public void testItShouldGiveAFingerprintFromCyclohexaneThatDoesntMatchOneFromBenzene()
+  {
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet cyclohexane = fingerprinter.getFingerprint(Molecules.createCyclohexane());
+
+    assertFalse(match(benzene, cyclohexane));
+  }
+
+  public void testItShouldGiveAFingerprintFromBenzeneThatDoesntMatchCyclohexane()
+  {
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet cyclohexane = fingerprinter.getFingerprint(Molecules.createCyclohexane());
+
+    assertFalse(match(cyclohexane, benzene));
+  }
+
+  public void testItShouldGiveAFingerprintFromBenzeneThatMatchesOneFromPhenol()
+  {
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet phenol = fingerprinter.getFingerprint(Molecules.createPhenol());
+
+    assertTrue(match(benzene, phenol));
+  }
+
+  public void testItShouldMatchPropaneToHexane()
+  {
+    BitSet propane = fingerprinter.getFingerprint(Molecules.createPropane());
+    BitSet hexane = fingerprinter.getFingerprint(Molecules.createHexane());
+
+    assertTrue(match(propane, hexane));
+  }
+
+  public void testItShouldMatchBenzeneToNaphthalene()
+  {
+    BitSet benzene = fingerprinter.getFingerprint(Molecules.createBenzene());
+    BitSet naphthalene = fingerprinter.getFingerprint(Molecules.createNaphthalene());
+
+    assertTrue(match(benzene, naphthalene));
+  }
+
+//  this needs to wait on completion of ring perception module
+//
+//  public void testItShouldNotMatchCyclohexaneToHexane()
+//  {
+//    BitSet cyclohexane = fingerprinter.getFingerprint(Molecules.createCyclohexane());
+//    BitSet hexane = fingerprinter.getFingerprint(Molecules.createHexane());
+//
+//    assertFalse(match(cyclohexane, hexane));
+//  }
+  public boolean match(BitSet bitset, BitSet other)
+  {
+    BitSet intersection = (BitSet) other;
+
+    intersection.and(bitset);
+
+    return intersection.equals(bitset);
   }
 }

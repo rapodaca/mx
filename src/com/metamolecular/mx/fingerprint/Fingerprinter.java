@@ -77,7 +77,15 @@ public class Fingerprinter
       
       for (Atom atom : path)
       {
-        pathString.append(atom.getSymbol());
+        String key = atom.getSymbol();
+        int unsaturation = atom.getValence() - atom.countNeighbors();
+        
+        if (unsaturation > 0)
+        {
+          key += unsaturation;
+        }
+        
+        pathString.append(key);
       }
       
       result.add(pathString.toString());
