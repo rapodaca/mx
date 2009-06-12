@@ -1,81 +1,121 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-
-	<title>rapodaca/mx @ GitHub</title>
-	
-	<style type="text/css">
-		body {
-  		margin-top: 1.0em;
-  		background-color: #9c8cf9;
-		  font-family: "helvetica"; 
-  		color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-		h1 { font-size: 3.8em; color: #637306; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #637306; }
-    h3 { text-align: center; color: #637306; }
-    a { color: #637306; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-	</style>
-	
-</head>
-
-<body>
-  <a href="http://github.com/rapodaca/mx"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>MX - Essential Cheminformatics</title>
+    <link href="global.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="prettify.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
   
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/rapodaca/mx/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="layout">
+          <div class ="files">
+            <div class="version">Current Version: <a href="http://github.com/rapodaca/mx/tree/1.0-beta1">1.0 Beta 1</a></div>
+            <div class="file"><a href="http://cloud.github.com/downloads/rapodaca/mx/mx-1.0-beta1.jar"><img src="jar.png"></img></a></div>
+            <div class="file"><a href="http://cloud.github.com/downloads/rapodaca/mx/mx-1.0-beta1-src.tar.gz"><img src="tar.png"></img></a></div>
+          </div>
+          <h1 class="title">MX</h1>
+          <h2 class="tagline">Essential Cheminformatics</h2>
+        </div>
+      </div>
+      <div class="layout">
+        <div class="content">
+          <div class="main">
+            <p>
+              MX is a lightweight cheminformatics toolkit written in Java that
+              emphasizes efficiency, modularity, and readability.
+              MX was originally part of <a href="http://chemwriter.com">ChemWriter</a>,
+              the 2D chemical structure editor developed by
+              <a href="http://metamolecular.com">Metamolecular</a>.
+            </p>
+            <h3>Features</h3>
+            <p>
+              Fully-supported MX features include:
+            </p>
+            <ul class="pretty">
+              <li>
+                Substructure search and atom mapping based on the
+                <a href="http://amalfi.dis.unina.it/graph/db/vflib-2.0/doc/vflib.html">VF algorithm</a>
+              </li>
+              <li>
+                Exhaustive ring perception based on the
+                <a href="http://dx.doi.org/10.1021/ci960322f">Hanser algorithm</a>
+              </li>
+              <li>Flexible query atom support</li>
+              <li>Depth-First traversal</li>
+              <li>Implicit hydrogen detection</li>
+              <li>
+                Complete system of atomic masses and isotopes based on the
+                <a href="http://dx.doi.org/10.1351/pac200375060683">IUPAC Technical Report</a>.
+              </li>
+              <li>
+                Model objects (Molecule, Atom, Bond, Superatom) based
+                on <a href="http://www.symyx.com/downloads/public/ctfile/ctfile.jsp">MDL CTfile specification</a>
+              </li>
+              <li>
+                Molfile reader and writer
+              </li>
+              <li>SD File reader and writer</li>
+            </ul>
+            <p>Partially-support MX features include:</p>
+            <ul class="pretty">
+              <li>SMILES reader</li>
+              <li>Binary hashed fingerprints</li>
+            </ul>
+            <h3>Development</h3>
+            <p>
+              MX is developed on
+              <a href="http://github.com/rapodaca/mx/tree/master">GitHub</a>. To fork:
+            </p>
+            <pre class="console">
+$ git clone git://github.com/rapodaca/mx.git
+            </pre>
+            <h3>License</h3>
+            <p>
+              MX is released under the <a href="http://www.opensource.org/licenses/mit-license.php">MIT License</a>.
+            </p>
+          </div>
+          <div class="sidebar">
+            <h3>Using MX</h3>
+            <ul class="pretty">
+              <li>
+                <a href="http://depth-first.com/articles/2008/11/21/introducing-mx-lightweight-and-free-cheminformatics-tools-for-java">Introducing MX: Lightweight and Free Cheminformatics Tools for Java</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/11/24/getting-started-with-mx">Getting Started with MX</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/12/01/open-source-cheminformatics-in-python-with-mx">Open Source Cheminformatics in Python with MX</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/12/09/javascript-for-cheminformatics-cross-compiling-java-to-javascript-with-gwt">JavaScript for Cheminformatics: Cross-Compiling Java to JavaScript with GWT</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/11/26/flexible-depth-first-search-with-mx">Flexible Depth-First Search With MX</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/12/08/calculating-molecular-mass-with-mx-using-a-complete-hydrogen-to-uranium-system-of-atomic-masses-linked-to-the-primary-literature">Calculating Molecular Mass With MX: Using a Complete Hydrogen to Uranium System of Atomic Masses Linked to the Primary Literature</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/12/05/open-benchmarks-for-cheminformatics">Open Benchmarks for Cheminformatics</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2008/12/03/reading-smiles-with-mx">Reading SMILES with MX</a>
+              </li>
+              <li>
+                <a href="http://depth-first.com/articles/2009/01/08/exhaustive-ring-perception-with-mx">Exhaustive Ring Perception With MX</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer">
+          
+        </div>
+      </div>
     </div>
-      
-    <h1><a href="http://github.com/rapodaca/mx">mx</a> 
-      <span class="small">by <a href="http://github.com/rapodaca">rapodaca</a></span></h1>
-
-    <div class="description">
-      Essential Cheminformatics
-    </div>
-
-    <h2>Authors</h2>
-<p>Richard Apodaca (rapodaca@metamolecular.com)
-<br/>
-<br/>      </p>
-<h2>Contact</h2>
-<p>Richard Apodaca (rapodaca@metamolecular.com)
-<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/rapodaca/mx/zipball/master">zip</a> or
-      <a href="http://github.com/rapodaca/mx/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/rapodaca/mx</pre>
-    </p>
-      
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/rapodaca/mx">rapodaca/mx</a>
-    </div>
-    
-  </div>
-
-  
-</body>
+  </body>
 </html>
